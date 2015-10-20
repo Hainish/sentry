@@ -1,0 +1,35 @@
+redis:
+  image: redis
+
+postgres:
+  image: postgres
+  environment:
+    POSTGRES_PASSWORD: secret
+    POSTGRES_USER: sentry
+
+sentry:
+  image: sentry
+  ports:
+    - 8080:9000
+  links:
+    - redis
+    - postgres
+  volumes:
+    - .:/home/user/.sentry
+
+celerybeat:
+  image: sentry
+  links:
+    - redis
+  command: sentry celery beat
+  volumes:
+    - .:/home/user/.sentry
+
+celeryworker:
+  image: sentry
+  links:
+    - redis
+    - postgres
+  command: sentry celery worker
+  volumes:
+    - .:/home/user/.sentry
