@@ -17,8 +17,6 @@ From now on, you just run
 
     docker-compose up
 
-to start, and
+to start.  Direct your browser to [https://localhost:8080/](https://localhost:8080/) to view the Sentry UI.  To stop, run
 
     docker-compose stop
-
-to stop.
