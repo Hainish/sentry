@@ -15,15 +15,15 @@ sentry:
     - redis
     - postgres
   volumes:
-    - .:/home/user/.sentry
+    - /home/user/.sentry
 
 celerybeat:
   image: sentry
   links:
     - redis
   command: sentry celery beat
-  volumes:
-    - .:/home/user/.sentry
+  volumes_from:
+    - sentry
 
 celeryworker:
   image: sentry
@@ -31,5 +31,5 @@ celeryworker:
     - redis
     - postgres
   command: sentry celery worker
-  volumes:
-    - .:/home/user/.sentry
+  volumes_from:
+    - sentry
