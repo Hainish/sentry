@@ -11,7 +11,7 @@ With the key generated above, run:
 
     docker run -it --rm -e SENTRY_SECRET_KEY='<secret-key>' --link sentry_postgres_1:postgres --link sentry_redis_1:redis sentry upgrade
 
-Add the key to `SENTRY_SECRET_KEY` in `docker-compose.yml` in three places.  Then:
+Add the key to `SENTRY_SECRET_KEY` in `docker-compose.yml` in three places, and change any mail settings in this file.  Then:
 
     docker-compose up
 
