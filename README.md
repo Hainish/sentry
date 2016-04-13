@@ -4,16 +4,16 @@ This provides an easy way to bootstrap the [Sentry](https://getsentry.com/) dock
 
 ## Setup
 
+    docker-compose up -d postgres redis
+    docker run --rm sentry generate-secret-key
+
+With the key generated above, run:
+
+    docker run -it --rm -e SENTRY_SECRET_KEY='<secret-key>' --link sentry_postgres_1:postgres --link sentry_redis_1:redis sentry upgrade
+
+Add the key to `SENTRY_SECRET_KEY` in `docker-compose.yml` in three places.  Then:
+
     docker-compose up
-    docker run -it --rm --link sentry_postgres_1:postgres --link sentry_redis_1:redis sentry sentry upgrade
-
-Next, you'll have to edit the settings in `sentry.conf.py` like so:
-
-    vim `docker inspect -f '{{ index .Volumes "/home/user/.sentry" }}' sentry_sentry_1`/sentry.conf.py
-
-Change the config options for any settings you want to customize, then:
-
-    docker-compose stop
 
 ## Running
 

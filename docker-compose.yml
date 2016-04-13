@@ -8,28 +8,29 @@ postgres:
     POSTGRES_USER: sentry
 
 sentry:
-  image: sentry
+  image: sentry:8.3
   ports:
     - 8080:9000
   links:
     - redis
     - postgres
-  volumes:
-    - /home/user/.sentry
+  environment:
+    SENTRY_SECRET_KEY: ''
 
 celerybeat:
-  image: sentry
+  image: sentry:8.3
   links:
     - redis
+    - postgres
   command: sentry celery beat
-  volumes_from:
-    - sentry
+  environment:
+    SENTRY_SECRET_KEY: ''
 
 celeryworker:
-  image: sentry
+  image: sentry:8.3
   links:
     - redis
     - postgres
   command: sentry celery worker
-  volumes_from:
-    - sentry
+  environment:
+    SENTRY_SECRET_KEY: ''
