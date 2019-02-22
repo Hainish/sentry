@@ -6,7 +6,7 @@ This provides an easy way to bootstrap the [Sentry](https://getsentry.com/) dock
 
     cp docker-compose.yml.example docker-compose.yml
     docker-compose up -d postgres redis
-    docker run --rm sentry generate-secret-key
+    docker run --rm sentry config generate-secret-key
 
 With the key generated above, run:
 
